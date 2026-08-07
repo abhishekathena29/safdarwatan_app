@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+
+<html class="scroll-smooth" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Browse Items - Safar Dar Watan</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400&amp;family=Space+Mono:ital,wght@0,400;0,700;1,400&amp;family=Work+Sans:wght@300;400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-primary-fixed-variant": "#7e2c17",
+                        "surface-container-lowest": "#ffffff",
+                        "on-tertiary-fixed": "#002114",
+                        "surface-variant": "#e5e2db",
+                        "on-secondary-fixed": "#281900",
+                        "surface-bright": "#fcf9f2",
+                        "inverse-on-surface": "#f3f0e9",
+                        "on-secondary-container": "#724d00",
+                        "secondary-fixed-dim": "#fbbb4d",
+                        "error": "#ba1a1a",
+                        "surface-dim": "#dcdad3",
+                        "inverse-surface": "#31312c",
+                        "secondary": "#7f5700",
+                        "primary": "#6d200d",
+                        "surface-container-highest": "#e5e2db",
+                        "error-container": "#ffdad6",
+                        "primary-container": "#8c3621",
+                        "on-secondary-fixed-variant": "#604100",
+                        "on-error": "#ffffff",
+                        "primary-fixed": "#ffdad2",
+                        "surface-container-low": "#f6f3ec",
+                        "primary-fixed-dim": "#ffb4a2",
+                        "tertiary-container": "#325947",
+                        "on-surface": "#1c1c18",
+                        "surface": "#fcf9f2",
+                        "on-primary-container": "#ffb29f",
+                        "surface-container-high": "#ebe8e1",
+                        "outline": "#89726d",
+                        "inverse-primary": "#ffb4a2",
+                        "tertiary-fixed": "#c1ecd4",
+                        "on-tertiary-container": "#a3ceb7",
+                        "surface-tint": "#9d422c",
+                        "outline-variant": "#dcc0ba",
+                        "on-surface-variant": "#56423e",
+                        "secondary-fixed": "#ffdead",
+                        "on-background": "#1c1c18",
+                        "tertiary": "#194231",
+                        "on-primary-fixed": "#3c0700",
+                        "on-primary": "#ffffff",
+                        "on-tertiary": "#ffffff",
+                        "secondary-container": "#febe50",
+                        "on-error-container": "#93000a",
+                        "tertiary-fixed-dim": "#a5d0b9",
+                        "on-tertiary-fixed-variant": "#274e3d",
+                        "on-secondary": "#ffffff",
+                        "surface-container": "#f1eee7",
+                        "background": "#fcf9f2"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "md": "16px",
+                        "xl": "40px",
+                        "lg": "24px",
+                        "sm": "8px",
+                        "margin-mobile": "20px",
+                        "gutter-mobile": "12px",
+                        "xs": "4px",
+                        "unit": "4px"
+                    },
+                    "fontFamily": {
+                        "label-sm": ["Space Mono"],
+                        "headline-lg": ["Playfair Display"],
+                        "headline-lg-mobile": ["Playfair Display"],
+                        "title-md": ["Playfair Display"],
+                        "display-lg": ["Playfair Display"],
+                        "body-lg": ["Work Sans"],
+                        "body-md": ["Work Sans"]
+                    },
+                    "fontSize": {
+                        "label-sm": ["12px", {"lineHeight": "1.0", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                        "headline-lg": ["32px", {"lineHeight": "1.2", "fontWeight": "700"}],
+                        "headline-lg-mobile": ["28px", {"lineHeight": "1.2", "fontWeight": "700"}],
+                        "title-md": ["22px", {"lineHeight": "1.4", "fontWeight": "600"}],
+                        "display-lg": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "900"}],
+                        "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                        "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>.material-symbols-outlined {
+    font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24
+    }
+.grain-overlay {
+    pointer-events: none;
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    opacity: 0.05;
+    background-image: url(https://lh3.googleusercontent.com/aida-public/AB6AXuAyLl5_RdMDnoZ4vZabRwjy8yUhAc9WXbLM3U2EHJ1E9eL0BVGUIeX4GKLpWYJr3mLnjccV_0knudNbQ6H8l-nDFXi3b6eU39Hy3La8KktlEoo6_YETVHIiBTXPjGv3gcWjzWuZVzolSi2l83-sNb9o2ZZ2BAKnLzn64skci8I7ln2_MZR5Clwu_5P17fh8K9ndjZCT-eR8iJ3jueTtkaijzMj06j2UBJflhIKxqRLZBydYPmHu2rms1LuQg8c4tRjP02jXHHGFkoNL)
+    }
+.archive-card {
+    transition: transform 0.2s cubic-bezier(0.17, 0.67, 0.83, 0.67)
+    }
+.archive-card:active {
+    transform: translatey(2px) translatex(2px)
+    }
+.double-border {
+    position: relative
+    }
+.double-border::after {
+    content: "";
+    position: absolute;
+    inset: -4px;
+    border: 1px solid currentColor;
+    opacity: 0.3;
+    z-index: -1
+    }</style>
+</head>
+<body class="bg-background text-on-surface font-body-md selection:bg-secondary-container selection:text-on-secondary-container">
+<div class="grain-overlay"></div>
+<!-- Navigation Drawer (Desktop Focused) -->
+<aside class="fixed inset-y-0 left-0 z-[60] flex flex-col py-lg bg-surface-bright border-r border-outline-variant shadow-xl w-80 -translate-x-full lg:translate-x-0 transition-transform duration-300" id="drawer">
+<div class="px-lg pb-xl">
+<h1 class="font-headline-lg text-primary text-3xl uppercase tracking-tighter">Safar Dar Watan</h1>
+<p class="font-label-sm text-on-surface-variant italic mt-xs">A Journey Home</p>
+</div>
+<nav class="flex-1 space-y-1">
+<a class="flex items-center px-lg py-3 text-on-surface-variant hover:bg-surface-container-high transition-colors group" href="#">
+<span class="material-symbols-outlined mr-md">history_edu</span>
+<span class="font-body-lg">Home/About</span>
+</a>
+<a class="flex items-center px-lg py-3 bg-secondary-container text-on-secondary-container font-semibold rounded-r-full translate-x-1 transition-transform" href="#">
+<span class="material-symbols-outlined mr-md">auto_stories</span>
+<span class="font-body-lg">Browse Items</span>
+</a>
+<a class="flex items-center px-lg py-3 text-on-surface-variant hover:bg-surface-container-high transition-colors group" href="#">
+<span class="material-symbols-outlined mr-md">category</span>
+<span class="font-body-lg">Collections</span>
+</a>
+<a class="flex items-center px-lg py-3 text-on-surface-variant hover:bg-surface-container-high transition-colors group" href="#">
+<span class="material-symbols-outlined mr-md">museum</span>
+<span class="font-body-lg">Thematic Exhibits</span>
+</a>
+<a class="flex items-center px-lg py-3 text-on-surface-variant hover:bg-surface-container-high transition-colors group" href="#">
+<span class="material-symbols-outlined mr-md">explore</span>
+<span class="font-body-lg">Geographical Map</span>
+</a>
+<a class="flex items-center px-lg py-3 text-on-surface-variant hover:bg-surface-container-high transition-colors group" href="#">
+<span class="material-symbols-outlined mr-md">settings_voice</span>
+<span class="font-body-lg">Community Podcast</span>
+</a>
+</nav>
+<div class="px-lg pt-xl border-t border-outline-variant border-dashed">
+<button class="w-full bg-primary text-on-primary py-3 px-md font-label-sm uppercase flex items-center justify-center gap-2 transition-all hover:brightness-110 active:translate-y-0.5">
+<span class="material-symbols-outlined text-[18px]">add_circle</span>
+                Contribute an Item
+            </button>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="lg:ml-80 min-h-screen relative pb-32">
+<!-- Top App Bar (Mobile View) -->
+<header class="lg:hidden sticky top-0 z-50 bg-background border-b border-outline-variant opacity-80 backdrop-blur-md h-16 flex justify-between items-center px-margin-mobile">
+<button class="text-primary hover:bg-surface-container-low p-2 transition-colors" onclick="toggleDrawer()">
+<span class="material-symbols-outlined">menu</span>
+</button>
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile text-primary uppercase tracking-wider">Safar Dar Watan</h2>
+<button class="text-primary hover:bg-surface-container-low p-2 transition-colors">
+<span class="material-symbols-outlined">search</span>
+</button>
+</header>
+<!-- Page Content -->
+<div class="px-margin-mobile md:px-xl py-xl max-w-7xl mx-auto">
+<!-- Header Section -->
+<div class="mb-xl flex flex-col md:flex-row md:items-end justify-between gap-lg">
+<div>
+<span class="font-label-sm text-on-primary-fixed-variant uppercase tracking-widest block mb-xs">Digital Archive</span>
+<h1 class="font-display-lg text-display-lg text-primary leading-tight">Browse Items</h1>
+</div>
+<!-- Search Bar -->
+<div class="w-full md:w-96">
+<form class="relative group">
+<input class="w-full bg-transparent border-0 border-b border-outline-variant focus:ring-0 focus:border-secondary py-3 pl-0 pr-12 font-body-lg placeholder:text-outline/50 transition-colors" placeholder="Search the heritage..." type="text"/>
+<div class="absolute right-0 bottom-3 flex items-center gap-2">
+<span class="material-symbols-outlined text-outline group-focus-within:text-secondary">search</span>
+</div>
+</form>
+<a class="font-label-sm text-secondary hover:text-primary transition-colors inline-block mt-2 flex items-center gap-1" href="#">
+                        Advanced Search
+                        <span class="material-symbols-outlined text-[14px]">arrow_right_alt</span>
+</a>
+</div>
+</div>
+<!-- Tags Filter (Bento Layout) -->
+<div class="mb-xl overflow-x-auto no-scrollbar pb-xs">
+<div class="flex flex-wrap gap-sm">
+<span class="font-label-sm bg-tertiary-container/10 text-tertiary px-3 py-1.5 border border-tertiary/20 hover:bg-tertiary-container/20 cursor-pointer transition-colors">culture</span>
+<span class="font-label-sm bg-secondary-container/10 text-secondary px-3 py-1.5 border border-secondary/20 hover:bg-secondary-container/20 cursor-pointer transition-colors">narrative</span>
+<span class="font-label-sm bg-primary-container/10 text-primary px-3 py-1.5 border border-primary/20 hover:bg-primary-container/20 cursor-pointer transition-colors">story</span>
+<span class="font-label-sm bg-tertiary-container/10 text-tertiary px-3 py-1.5 border border-tertiary/20 hover:bg-tertiary-container/20 cursor-pointer transition-colors">personal history</span>
+<span class="font-label-sm bg-secondary-container/10 text-secondary px-3 py-1.5 border border-secondary/20 hover:bg-secondary-container/20 cursor-pointer transition-colors">architecture</span>
+<span class="font-label-sm bg-primary-container/10 text-primary px-3 py-1.5 border border-primary/20 hover:bg-primary-container/20 cursor-pointer transition-colors">video</span>
+</div>
+</div>
+<!-- Archive Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-xl">
+<!-- Card 1 -->
+<article class="archive-card group border border-outline/30 bg-surface flex flex-col p-xs relative overflow-hidden">
+<div class="relative aspect-[3/4] overflow-hidden">
+<img alt="Item Image" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 filter sepia-[0.2] brightness-95 group-hover:brightness-100 group-hover:sepia-0" src="https://lh3.googleusercontent.com/aida/ADBb0uiVjGYMcwrX-9IPe3BlNHbYg02AyP-UK6qUz3A2XaChKFtlrId-rf47TbHcl4OoC-khmNnzOSEAJV__-GVkiDySZWILyCH_Kwx4i9g5cVwk5MSrrvc5zB12p-gPxgAfFzoiQX2pwunqnbbDwaR416GONfO2QkYSPZy9-G_OOjDkLNJpco4xJdYdJk86ywqpuVoXVI4MqPD1Uopeg6yeEbGEsniLlBA0H-Abp9esgfEWAqEdDcR_Q4vlSsqZ"/>
+<div class="absolute top-md left-md">
+<span class="font-label-sm bg-primary text-on-primary px-2 py-1 uppercase text-[10px]">Item #38</span>
+</div>
+</div>
+<div class="p-md bg-surface-bright flex-1 flex flex-col justify-between">
+<div>
+<h3 class="font-title-md text-title-md text-on-surface mb-sm group-hover:text-primary transition-colors leading-tight">Naqsh.....The Imprint</h3>
+<div class="flex flex-wrap gap-xs mb-md">
+<span class="font-label-sm text-[10px] text-on-surface-variant/70 italic">#visual</span>
+<span class="font-label-sm text-[10px] text-on-surface-variant/70 italic">#narrative</span>
+</div>
+</div>
+<a class="font-label-sm text-primary uppercase flex items-center justify-end gap-1 group-hover:gap-2 transition-all" href="#">
+                            View Details <span class="material-symbols-outlined text-[16px]">open_in_new</span>
+</a>
+</div>
+</article>
+<!-- Card 2 -->
+<article class="archive-card group border border-outline/30 bg-surface flex flex-col p-xs relative overflow-hidden">
+<div class="relative aspect-[3/4] overflow-hidden">
+<img alt="Item Image" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 filter sepia-[0.2] brightness-95 group-hover:brightness-100 group-hover:sepia-0" src="https://lh3.googleusercontent.com/aida/ADBb0ug0BQFSxloX0l1O0Z7cpMmRdl2HGT6-71Qt8JL5qZp-dhbqHCvj-3M2w537OXFjdJzKilGo47hPLkH4M6Xr3XCO1ZvbLLEJhwwAVB2Xqbx23yC3r5_r3A-p725adqPyBY1oDczHJBdsg9zJb5YJdRDq8larHhbp5d_XAVkmuGTT6MONHMnGVWVOsUH7Loag7shNAueZZHJS2bSy1HCEN9xlfug-tcrW2kwKt9akLLliEOv77HgihqZF5Nk7"/>
+<div class="absolute top-md left-md">
+<span class="font-label-sm bg-primary text-on-primary px-2 py-1 uppercase text-[10px]">Exhibit Item</span>
+</div>
+</div>
+<div class="p-md bg-surface-bright flex-1 flex flex-col justify-between">
+<div>
+<h3 class="font-title-md text-title-md text-on-surface mb-sm group-hover:text-primary transition-colors leading-tight">Architectural Epigraphy of Kashmir</h3>
+<div class="flex flex-wrap gap-xs mb-md">
+<span class="font-label-sm text-[10px] text-on-surface-variant/70 italic">#architecture</span>
+<span class="font-label-sm text-[10px] text-on-surface-variant/70 italic">#culture</span>
+</div>
+</div>
+<a class="font-label-sm text-primary uppercase flex items-center justify-end gap-1 group-hover:gap-2 transition-all" href="#">
+                            View Details <span class="material-symbols-outlined text-[16px]">open_in_new</span>
+</a>
+</div>
+</article>
+<!-- Card 3 -->
+<article class="archive-card group border border-outline/30 bg-surface flex flex-col p-xs relative overflow-hidden">
+<div class="relative aspect-[3/4] overflow-hidden">
+<img alt="Item Image" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 filter sepia-[0.2] brightness-95 group-hover:brightness-100 group-hover:sepia-0" src="https://lh3.googleusercontent.com/aida/ADBb0uiXyvsyL6L_aOl2ncvd1nOp9jsnDjoSv9vqWIS74Mkt80UQvMIAp2y44JSUOZpMGAi-omUdia81gYaDsBdDlTMCFOPwOw2LlhcSlu-GFM58vhEbhXiOwZbiRFnI4tXpODDheHV2xMYR3AbWOItAohpLTzdzdWIcMK4ZTJ8nVJP7LXj60waj5vRUy0xq9ZJTBximSZ5rI_2ugbfqCxlZkutDfmTZNBZFmV4h_nHIwy1kol_8kAjMkLsKEZAm"/>
+<div class="absolute top-md left-md">
+<span class="font-label-sm bg-primary text-on-primary px-2 py-1 uppercase text-[10px]">Special Item</span>
+</div>
+</div>
+<div class="p-md bg-surface-bright flex-1 flex flex-col justify-between">
+<div>
+<h3 class="font-title-md text-title-md text-on-surface mb-sm group-hover:text-primary transition-colors leading-tight">Hānkal - Metal Chains in Architecture</h3>
+<div class="flex flex-wrap gap-xs mb-md">
+<span class="font-label-sm text-[10px] text-on-surface-variant/70 italic">#architecture</span>
+<span class="font-label-sm text-[10px] text-on-surface-variant/70 italic">#crafts</span>
+</div>
+</div>
+<a class="font-label-sm text-primary uppercase flex items-center justify-end gap-1 group-hover:gap-2 transition-all" href="#">
+                            View Details <span class="material-symbols-outlined text-[16px]">open_in_new</span>
+</a>
+</div>
+</article>
+<!-- Card 4 (Placeholder) -->
+<article class="archive-card group border border-outline/30 bg-surface flex flex-col p-xs relative overflow-hidden">
+<div class="relative aspect-[3/4] overflow-hidden bg-surface-container flex items-center justify-center p-xl">
+<div class="text-center border border-outline-variant border-dashed p-lg w-full h-full flex flex-col justify-center items-center">
+<span class="material-symbols-outlined text-outline opacity-40 text-6xl mb-md">history_edu</span>
+<span class="font-label-sm text-outline uppercase tracking-widest text-[10px]">Archived Manuscript</span>
+</div>
+</div>
+<div class="p-md bg-surface-bright flex-1 flex flex-col justify-between">
+<div>
+<h3 class="font-title-md text-title-md text-on-surface mb-sm group-hover:text-primary transition-colors leading-tight">Folklore of the Valley</h3>
+<div class="flex flex-wrap gap-xs mb-md">
+<span class="font-label-sm text-[10px] text-on-surface-variant/70 italic">#story</span>
+<span class="font-label-sm text-[10px] text-on-surface-variant/70 italic">#oral history</span>
+</div>
+</div>
+<a class="font-label-sm text-primary uppercase flex items-center justify-end gap-1 group-hover:gap-2 transition-all" href="#">
+                            View Details <span class="material-symbols-outlined text-[16px]">open_in_new</span>
+</a>
+</div>
+</article>
+<!-- Card 5 (Image with Overlay text style) -->
+<article class="archive-card group border border-outline/30 bg-surface flex flex-col p-xs relative overflow-hidden">
+<div class="relative aspect-[3/4] overflow-hidden group">
+<img class="w-full h-full object-cover grayscale transition-all duration-700 group-hover:grayscale-0" data-alt="A moody, high-contrast black and white photograph of an ornate wooden doorway in an ancient Kashmiri residence. The intricate carvings are highlighted by a single beam of dusty sunlight. The aesthetic is weathered and historic, capturing the textures of aged wood and stone in a sophisticated, minimalist editorial style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBeQtOLYvgh5KvWb7FdfgzOHgt4GJ7RzK3ejb6Remc8_AMjEK6sIWwpsmKSKTy-O8IzKPWIHSwkCzsPnUNK6KNsAiGCTNsl8nvR4IegkImcM_mEB7SHE5nHY_7TjMlhbh8zJOkONRyNc0TqoZt0s8XjJvHkzNFX0-2NNLtYPkzex29hY_u0V8DLRymz21aNOpRnjybhT0WXEVbwa7DFzxJDHXvMo6bnIfSeEfBKtzIj71FvOxUBwirZfS8VzJDYFzUA1tUcsT4ljJeU"/>
+<div class="absolute inset-0 bg-primary/20 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+</div>
+<div class="p-md bg-surface-bright flex-1 flex flex-col justify-between">
+<div>
+<h3 class="font-title-md text-title-md text-on-surface mb-sm group-hover:text-primary transition-colors leading-tight">Preserving Kashmiri Lattice Work</h3>
+<div class="flex flex-wrap gap-xs mb-md">
+<span class="font-label-sm text-[10px] text-on-surface-variant/70 italic">#crafts</span>
+<span class="font-label-sm text-[10px] text-on-surface-variant/70 italic">#visual</span>
+</div>
+</div>
+<a class="font-label-sm text-primary uppercase flex items-center justify-end gap-1 group-hover:gap-2 transition-all" href="#">
+                            View Details <span class="material-symbols-outlined text-[16px]">open_in_new</span>
+</a>
+</div>
+</article>
+<!-- Card 6 (Textual item) -->
+<article class="archive-card group border border-outline/30 bg-surface flex flex-col p-xs relative overflow-hidden">
+<div class="relative aspect-[3/4] overflow-hidden bg-primary-container/5 flex flex-col items-center justify-center p-xl text-center">
+<h4 class="font-headline-lg-mobile italic text-on-surface-variant/30 leading-tight">"Heritage is not a static memory, but a living dialogue."</h4>
+<span class="mt-lg block w-12 h-[1px] bg-outline-variant"></span>
+</div>
+<div class="p-md bg-surface-bright flex-1 flex flex-col justify-between">
+<div>
+<h3 class="font-title-md text-title-md text-on-surface mb-sm group-hover:text-primary transition-colors leading-tight">Digital Archiving: Community &amp; Consent</h3>
+<div class="flex flex-wrap gap-xs mb-md">
+<span class="font-label-sm text-[10px] text-on-surface-variant/70 italic">#narrative</span>
+<span class="font-label-sm text-[10px] text-on-surface-variant/70 italic">#culture</span>
+</div>
+</div>
+<a class="font-label-sm text-primary uppercase flex items-center justify-end gap-1 group-hover:gap-2 transition-all" href="#">
+                            View Details <span class="material-symbols-outlined text-[16px]">open_in_new</span>
+</a>
+</div>
+</article>
+</div>
+<!-- Pagination/Footer Actions -->
+<div class="mt-xl flex flex-col items-center gap-md border-t border-outline-variant border-dashed pt-xl">
+<button class="font-label-sm text-secondary uppercase border-b border-secondary/30 hover:border-secondary transition-all">
+                    Load More (12/18)
+                 </button>
+</div>
+</div>
+<!-- Footer -->
+<footer class="flex flex-col items-center gap-md text-center pb-32 pt-12 bg-surface-container-highest/30">
+<h4 class="font-title-md text-primary tracking-widest uppercase">Safar Dar Watan</h4>
+<div class="flex gap-lg">
+<a class="font-label-sm text-on-surface-variant italic hover:text-primary transition-colors" href="#">Longing</a>
+<a class="font-label-sm text-on-surface-variant italic hover:text-primary transition-colors" href="#">Resilience</a>
+<a class="font-label-sm text-on-surface-variant italic hover:text-primary transition-colors" href="#">Heritage</a>
+<a class="font-label-sm text-on-surface-variant italic hover:text-primary transition-colors" href="#">Contribute</a>
+</div>
+<p class="font-label-sm text-on-surface-variant italic opacity-60">© 2024 Safar Dar Watan • A Journey Home</p>
+<div class="flex items-center gap-md mt-md">
+<a class="hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined">smart_display</span>
+</a>
+<a class="hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined">rss_feed</span>
+</a>
+</div>
+</footer>
+</main>
+<!-- Bottom Nav (Mobile Only) -->
+<nav class="lg:hidden fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 py-2 pb-safe bg-surface/90 backdrop-blur-md border-t border-outline-variant">
+<a class="flex flex-col items-center justify-center text-on-surface-variant opacity-70 hover:opacity-100 transition-opacity" href="#">
+<span class="material-symbols-outlined">home</span>
+<span class="font-label-sm text-[10px] uppercase tracking-tighter">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant opacity-70 hover:opacity-100 transition-opacity" href="#">
+<span class="material-symbols-outlined">account_balance</span>
+<span class="font-label-sm text-[10px] uppercase tracking-tighter">Archive</span>
+</a>
+<a class="flex flex-col items-center justify-center text-primary bg-primary-fixed rounded-full px-3 py-1 scale-95 duration-150" href="#">
+<span class="material-symbols-outlined">grid_view</span>
+<span class="font-label-sm text-[10px] uppercase tracking-tighter">Explore</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant opacity-70 hover:opacity-100 transition-opacity" href="#">
+<span class="material-symbols-outlined">map</span>
+<span class="font-label-sm text-[10px] uppercase tracking-tighter">Map</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant opacity-70 hover:opacity-100 transition-opacity" href="#">
+<span class="material-symbols-outlined">mic</span>
+<span class="font-label-sm text-[10px] uppercase tracking-tighter">Voices</span>
+</a>
+</nav>
+<script>
+        function toggleDrawer() {
+            const drawer = document.getElementById('drawer');
+            drawer.classList.toggle('-translate-x-full');
+        }
+
+        // Close drawer when clicking outside on mobile
+        document.addEventListener('click', (e) => {
+            const drawer = document.getElementById('drawer');
+            const menuBtn = document.querySelector('button[onclick="toggleDrawer()"]');
+            if (window.innerWidth < 1024 && !drawer.contains(e.target) && !menuBtn.contains(e.target)) {
+                drawer.classList.add('-translate-x-full');
+            }
+        });
+
+        // Atmospheric effect: subtle scroll parallax for archive images
+        window.addEventListener('scroll', () => {
+            const items = document.querySelectorAll('.archive-card img');
+            items.forEach(img => {
+                const speed = 0.05;
+                const rect = img.getBoundingClientRect();
+                const offset = (window.innerHeight - rect.top) * speed;
+                if (rect.top < window.innerHeight && rect.bottom > 0) {
+                    img.style.transform = `scale(1.05) translateY(${offset - 10}px)`;
+                }
+            });
+        });
+    </script>
+</body></html>

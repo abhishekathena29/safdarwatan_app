@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Safar Dar Watan - Browse Collections</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;900&amp;family=Space+Mono:wght@400;700&amp;family=Work+Sans:wght@300;400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>.material-symbols-outlined {
+    font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 48
+    }
+.paper-grain {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0.04;
+    background-image: url(https://lh3.googleusercontent.com/aida-public/AB6AXuCMXI9sBTGfpruBPXkcvQNbMQxf_FNINPc-ljtsg5ZSSUk57EPM0fnrftfEG3j1vXx3afoGs75zba1mOeSQpP7OgasRYaxWvzEaMJ1mojah5SgXzoLEIEuIMrF0mTwMRkFvj_-PtSn1UZemGgcLzDpSFKFLq0FZH67L1s2G85kMvUnqBZdz9QC3pDaVPsmv0p6v5Pb6fmQBCVCnt2Ui-ZLbLKsrfC0CMErqAqqKxzAQl52exY0lDtNjGwNn0315e0FnN7agAKbu_Ry1)
+    }
+.archive-card-hover {
+    transition: transform 0.2s cubic-bezier(0.17, 0.67, 0.83, 0.67)
+    }
+.archive-card-hover:active {
+    transform: translatey(2px) translatex(1px)
+    }
+.asymmetric-border {
+    border: 0.5px solid rgba(86, 66, 62, 0.3)
+    }
+.text-vertical {
+    writing-mode: vertical-rl;
+    text-orientation: mixed
+    }
+.double-border {
+    position: relative
+    }
+.double-border::after {
+    content: "";
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    right: -4px;
+    bottom: -4px;
+    border: 1px solid #6d200d;
+    z-index: -1
+    }</style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-primary-fixed-variant": "#7e2c17",
+                        "surface-container-lowest": "#ffffff",
+                        "on-tertiary-fixed": "#002114",
+                        "surface-variant": "#e5e2db",
+                        "on-secondary-fixed": "#281900",
+                        "surface-bright": "#fcf9f2",
+                        "inverse-on-surface": "#f3f0e9",
+                        "on-secondary-container": "#724d00",
+                        "secondary-fixed-dim": "#fbbb4d",
+                        "error": "#ba1a1a",
+                        "surface-dim": "#dcdad3",
+                        "inverse-surface": "#31312c",
+                        "secondary": "#7f5700",
+                        "primary": "#6d200d",
+                        "surface-container-highest": "#e5e2db",
+                        "error-container": "#ffdad6",
+                        "primary-container": "#8c3621",
+                        "on-secondary-fixed-variant": "#604100",
+                        "on-error": "#ffffff",
+                        "primary-fixed": "#ffdad2",
+                        "surface-container-low": "#f6f3ec",
+                        "primary-fixed-dim": "#ffb4a2",
+                        "tertiary-container": "#325947",
+                        "on-surface": "#1c1c18",
+                        "surface": "#fcf9f2",
+                        "on-primary-container": "#ffb29f",
+                        "surface-container-high": "#ebe8e1",
+                        "outline": "#89726d",
+                        "inverse-primary": "#ffb4a2",
+                        "tertiary-fixed": "#c1ecd4",
+                        "on-tertiary-container": "#a3ceb7",
+                        "surface-tint": "#9d422c",
+                        "outline-variant": "#dcc0ba",
+                        "on-surface-variant": "#56423e",
+                        "secondary-fixed": "#ffdead",
+                        "on-background": "#1c1c18",
+                        "tertiary": "#194231",
+                        "on-primary-fixed": "#3c0700",
+                        "on-primary": "#ffffff",
+                        "on-tertiary": "#ffffff",
+                        "secondary-container": "#febe50",
+                        "on-error-container": "#93000a",
+                        "tertiary-fixed-dim": "#a5d0b9",
+                        "on-tertiary-fixed-variant": "#274e3d",
+                        "on-secondary": "#ffffff",
+                        "surface-container": "#f1eee7",
+                        "background": "#fcf9f2"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "md": "16px",
+                        "xl": "40px",
+                        "lg": "24px",
+                        "sm": "8px",
+                        "margin-mobile": "20px",
+                        "gutter-mobile": "12px",
+                        "xs": "4px",
+                        "unit": "4px"
+                    },
+                    "fontFamily": {
+                        "label-sm": ["Space Mono"],
+                        "headline-lg": ["Playfair Display"],
+                        "headline-lg-mobile": ["Playfair Display"],
+                        "title-md": ["Playfair Display"],
+                        "display-lg": ["Playfair Display"],
+                        "body-lg": ["Work Sans"],
+                        "body-md": ["Work Sans"]
+                    },
+                    "fontSize": {
+                        "label-sm": ["12px", {"lineHeight": "1.0", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                        "headline-lg": ["32px", {"lineHeight": "1.2", "fontWeight": "700"}],
+                        "headline-lg-mobile": ["28px", {"lineHeight": "1.2", "fontWeight": "700"}],
+                        "title-md": ["22px", {"lineHeight": "1.4", "fontWeight": "600"}],
+                        "display-lg": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "900"}],
+                        "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                        "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-surface font-body-md overflow-x-hidden selection:bg-secondary-fixed selection:text-on-secondary-fixed">
+<div class="paper-grain"></div>
+<!-- Top Navigation Bar -->
+<header class="bg-background dark:bg-background border-b border-outline-variant opacity-80 fixed top-0 left-0 w-full z-50">
+<div class="flex justify-between items-center px-margin-mobile h-16 w-full max-w-screen-xl mx-auto">
+<button class="material-symbols-outlined text-primary dark:text-primary-fixed-dim hover:bg-surface-container-low transition-colors p-2" onclick="toggleDrawer()">menu</button>
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile text-primary dark:text-primary-fixed uppercase tracking-wider">Safar Dar Watan</h1>
+<button class="material-symbols-outlined text-primary dark:text-primary-fixed-dim hover:bg-surface-container-low transition-colors p-2">search</button>
+</div>
+</header>
+<!-- Navigation Drawer -->
+<nav class="fixed inset-y-0 left-0 z-[60] flex flex-col py-lg bg-surface-bright dark:bg-surface-dim border-r border-outline-variant shadow-xl h-full w-80 -translate-x-full transition-transform duration-300 ease-in-out" id="nav-drawer">
+<div class="px-md pb-xl flex justify-between items-center">
+<span class="font-headline-lg text-primary">Safar Dar Watan</span>
+<button class="material-symbols-outlined text-on-surface-variant" onclick="toggleDrawer()">close</button>
+</div>
+<div class="flex flex-col flex-1 overflow-y-auto">
+<a class="px-md py-4 text-on-surface-variant hover:bg-surface-container-high font-body-lg text-body-lg flex items-center gap-4" href="#">
+<span class="material-symbols-outlined">history_edu</span> Home/About
+            </a>
+<a class="px-md py-4 text-on-surface-variant hover:bg-surface-container-high font-body-lg text-body-lg flex items-center gap-4" href="#">
+<span class="material-symbols-outlined">auto_stories</span> Browse Items
+            </a>
+<a class="px-md py-4 bg-secondary-container text-on-secondary-container font-semibold rounded-r-full font-body-lg text-body-lg flex items-center gap-4 translate-x-1 transition-transform" href="#">
+<span class="material-symbols-outlined">category</span> Collections
+            </a>
+<a class="px-md py-4 text-on-surface-variant hover:bg-surface-container-high font-body-lg text-body-lg flex items-center gap-4" href="#">
+<span class="material-symbols-outlined">museum</span> Thematic Exhibits
+            </a>
+<a class="px-md py-4 text-on-surface-variant hover:bg-surface-container-high font-body-lg text-body-lg flex items-center gap-4" href="#">
+<span class="material-symbols-outlined">explore</span> Geographical Map
+            </a>
+<a class="px-md py-4 text-on-surface-variant hover:bg-surface-container-high font-body-lg text-body-lg flex items-center gap-4" href="#">
+<span class="material-symbols-outlined">settings_voice</span> Community Podcast
+            </a>
+</div>
+</nav>
+<main class="mt-24 mb-32 px-margin-mobile max-w-screen-xl mx-auto">
+<!-- Hero Title -->
+<div class="mb-xl text-center md:text-left">
+<span class="font-label-sm text-label-sm text-primary uppercase tracking-widest block mb-xs">Explore the Archive</span>
+<h2 class="font-display-lg text-display-lg text-on-surface-variant">Browse Collections</h2>
+<div class="h-1 w-24 bg-primary mt-sm mx-auto md:mx-0"></div>
+</div>
+<!-- Collections Bento Grid -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-lg">
+<!-- Poetry Card (Deep Blue Accent) -->
+<div class="md:col-span-8 group relative overflow-hidden bg-surface-container asymmetric-border archive-card-hover min-h-[320px] flex">
+<div class="absolute inset-0 bg-[#001f3f]/10 pointer-events-none transition-opacity group-hover:opacity-20"></div>
+<div class="flex-1 p-lg flex flex-col justify-between">
+<div>
+<span class="font-label-sm text-label-sm bg-[#001f3f]/10 text-[#001f3f] px-2 py-1 uppercase mb-md inline-block">Collection 07</span>
+<h3 class="font-headline-lg text-headline-lg text-[#001f3f] mb-sm">شاعری(shayari)</h3>
+<h4 class="font-title-md text-title-md italic text-on-surface-variant opacity-80">Poetry of the Valley</h4>
+</div>
+<p class="font-body-md text-body-md max-w-md mt-md text-on-surface-variant">A curated selection of Kashmiri verse, from the mystical Vakhs of Lal Ded to contemporary resistance literature.</p>
+<a class="mt-lg font-label-sm text-label-sm text-primary underline underline-offset-4 font-bold flex items-center gap-2" href="#">
+                        VIEW ARCHIVE <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</a>
+</div>
+<div class="hidden md:block w-1/3 relative h-full">
+<img class="absolute inset-0 w-full h-full object-cover grayscale opacity-60 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-700" data-alt="A macro photograph of aged, yellowed paper with elegant Persian calligraphy in black ink. The lighting is soft and side-lit, highlighting the texture of the thick, fibrous parchment. The overall mood is quiet, historical, and deeply intimate, fitting the 'Digital Heirloom' aesthetic with a focus on artisanal minimalism and rich cultural history." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAk6OAJVX4UJoJx0ZS0ra2RduRE_nKu2586t3bAjr-VpoXtLhAOeuXO6iSI2m7uekrwBF9nsU-2PmlMOaIj1w4aU0iFcMhcJNejvnzrpDQZatj-6IEpXEtkDWamY_aTKzDkIB-lxYD5vNmvlSbvCglb4zhF4MjqW7vzM9MJiciwNuwi1QfOZ4Xt5kwMMwkgJXGXebNF2acxGrlHI3SKUBq-vQEQjaUfGixSUIOvUi60TcIq27GRDdohqKmxwYG6xWuUaXDhu1z9zrTD"/>
+</div>
+</div>
+<!-- Cuisine Card (Saffron Accent) -->
+<div class="md:col-span-4 group relative overflow-hidden bg-surface-container asymmetric-border archive-card-hover flex flex-col">
+<div class="p-lg bg-secondary-container/20 border-b border-outline-variant">
+<span class="font-label-sm text-label-sm text-secondary uppercase font-bold">Wazwan &amp; Hearth</span>
+</div>
+<div class="p-lg flex-1">
+<h3 class="font-headline-lg text-headline-lg text-secondary mb-sm leading-tight">کھیوٚن(khyawun)</h3>
+<h4 class="font-title-md text-title-md text-on-surface-variant italic">Traditional Cuisine</h4>
+</div>
+<div class="h-40 relative">
+<img class="w-full h-full object-cover grayscale transition-all duration-700 group-hover:grayscale-0" data-alt="A top-down view of a rustic copper vessel filled with aromatic Kashmiri Wazwan dishes like Rogan Josh. Warm, golden sunlight illuminates the steam and the rich saffron-colored oil. The setting is on a textured wooden table with scattered spices, creating a nostalgic, warm, and inviting atmosphere that emphasizes handcrafted heritage and traditional sensory experience." src="https://lh3.googleusercontent.com/aida-public/AB6AXuATtVtGmpV0GH4bdSjZhAci-W89UuT2owyHFzn1G0sU1Mwdi9EKjH7fjlb2VL3xvvPPMm-S25ax_t1hh5Yz_sYosItZbYktDSeJpXNQZf9z-p0kNctl4qieFKIRtdU9L9ew0u2NKDBz7pYYzsMPyrYuYaxxICWhu36xDx4IT_C3-YiySj-lhWMb3NMSdqr0ixszFXi0d34eRClbcv830STuluO6q6wi204ODDodt98X05ZCzRAjLglT9nda-DW7oYKBMHhH_-fflIaU"/>
+<div class="absolute bottom-4 right-4">
+<button class="bg-secondary text-on-secondary px-4 py-2 font-label-sm text-label-sm double-border">OPEN</button>
+</div>
+</div>
+</div>
+<!-- Community Card (Neutral / Resilience) -->
+<div class="md:col-span-5 group relative overflow-hidden bg-surface-container-high asymmetric-border archive-card-hover flex flex-col p-lg">
+<span class="font-label-sm text-label-sm text-on-primary-fixed-variant mb-md block">Advocacy &amp; Memory</span>
+<h3 class="font-headline-lg text-headline-lg text-primary mb-sm leading-tight">وپکار (wupkar)</h3>
+<h4 class="font-title-md text-title-md text-on-surface-variant italic mb-lg">Community Outreach</h4>
+<div class="mt-auto bg-primary/5 p-md border-l-4 border-primary italic font-body-md text-body-md text-on-surface-variant">
+                    "Elevating voices that echo through the chinar trees, bridging the gap between exile and identity."
+                </div>
+<a class="mt-lg font-label-sm text-label-sm text-primary flex items-center gap-2 hover:translate-x-2 transition-transform" href="#">
+                    EXPLORE GLOBAL AWARENESS <span class="material-symbols-outlined text-[16px]">north_east</span>
+</a>
+</div>
+<!-- Arts and Crafts (Jewel Toned - Emerald) -->
+<div class="md:col-span-7 group relative overflow-hidden bg-[#e0efea] asymmetric-border archive-card-hover flex">
+<div class="p-lg flex-1 flex flex-col">
+<span class="font-label-sm text-label-sm text-tertiary uppercase mb-md">Artisanship</span>
+<h3 class="font-headline-lg text-headline-lg text-tertiary mb-sm">کاریگَری(kārigāri)</h3>
+<h4 class="font-title-md text-title-md text-on-tertiary-fixed-variant italic">Traditional Arts</h4>
+<p class="font-body-md text-body-md text-on-tertiary-fixed-variant mt-md">Papier-mâché, Pashmina weaving, and walnut wood carving. The hands of the masters preserved in pixels.</p>
+<div class="mt-auto flex gap-sm">
+<span class="bg-tertiary/10 text-tertiary text-[10px] px-2 py-0.5 rounded-full border border-tertiary/20">TEXTILE</span>
+<span class="bg-tertiary/10 text-tertiary text-[10px] px-2 py-0.5 rounded-full border border-tertiary/20">WOODCRAFT</span>
+</div>
+</div>
+<div class="w-1/2 relative h-full">
+<img class="absolute inset-0 w-full h-full object-cover sepia-[0.3] group-hover:sepia-0 transition-all duration-700" data-alt="A close-up photograph of a skilled artisan's weathered hands delicately carving intricate floral patterns into dark walnut wood. Fine wood shavings are visible, and the lighting is high-contrast, reminiscent of a vintage studio portrait. The image conveys a sense of deep focus, resilience, and the tactile nature of Kashmiri craftsmanship, using a muted, earthy color palette." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA3eypg32fV8gnM8-uqd8btKvYlxB0nqoCAO4XHSpF4WuLmJtKx2baaqAcjnnOUGyvQu1TcYHK2QLrf0xkI1nS6zOiVSiXHmxgwMUCBUevX6yvBc7QpJsuYmqDxFQTI8indJ25ApjyCOd133Gxn_mNl6B-rqaJQgbB18qSMzMgvneiiDqlD5NlYkvzcqU0uUBbp4Rh9jwIP7scH8NpTQBCxObBAY5M26GOBx69uPxHK860Zp2manviiBLWmDuYbZd7m2YsemsIcMXOy"/>
+</div>
+</div>
+<!-- Architectural Epigraphy (Textured Slate) -->
+<div class="md:col-span-6 group relative overflow-hidden bg-surface-variant asymmetric-border archive-card-hover min-h-[300px]">
+<div class="absolute top-0 right-0 p-lg opacity-10">
+<span class="material-symbols-outlined text-[120px]">architecture</span>
+</div>
+<div class="p-lg h-full flex flex-col relative z-10">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase mb-md">Architectural History</span>
+<h3 class="font-headline-lg text-headline-lg text-on-surface mb-sm">Naqsh... The Imprint</h3>
+<h4 class="font-title-md text-title-md text-primary italic">Architectural Epigraphy</h4>
+<p class="font-body-md text-body-md text-on-surface-variant mt-md flex-1">Tracing the Sultanate, Afghan, and Sikh inscriptions on the stones of the valley. A study in stone and soul.</p>
+<button class="w-fit font-label-sm text-label-sm bg-on-surface text-surface px-6 py-3 mt-lg hover:bg-primary transition-colors">
+                        BROWSE EXHIBIT
+                    </button>
+</div>
+</div>
+<!-- Oral History (Deep Warm Paper) -->
+<div class="md:col-span-6 group relative overflow-hidden bg-primary-fixed asymmetric-border archive-card-hover min-h-[300px] flex">
+<div class="p-lg flex-1">
+<span class="font-label-sm text-label-sm text-on-primary-fixed-variant uppercase mb-md block">Living Memory</span>
+<h3 class="font-headline-lg text-headline-lg text-on-primary-fixed-variant mb-sm">Oral History</h3>
+<h4 class="font-title-md text-title-md text-on-primary-fixed-variant opacity-70 italic mb-md">Podcast &amp; Narratives</h4>
+<ul class="space-y-2 font-body-md text-body-md text-on-primary-fixed-variant">
+<li class="flex items-center gap-2"><span class="material-symbols-outlined text-[18px]">mic</span> Episode 14: The Lost Ladishah</li>
+<li class="flex items-center gap-2"><span class="material-symbols-outlined text-[18px]">mic</span> Episode 15: Migration Memories</li>
+</ul>
+</div>
+<div class="w-16 h-full flex items-center justify-center border-l border-on-primary-fixed-variant/10">
+<span class="text-vertical font-label-sm text-label-sm text-on-primary-fixed-variant opacity-40 tracking-widest">LISTEN • RECORD • REMEMBER</span>
+</div>
+</div>
+</div>
+<!-- Pagination/Footer Actions -->
+<div class="mt-xl flex flex-col items-center gap-md">
+<button class="bg-primary text-on-primary px-xl py-4 font-label-sm text-label-sm double-border hover:bg-on-primary-fixed-variant transition-all uppercase tracking-widest">
+                Contribute to the Archive
+            </button>
+<p class="font-body-md text-body-md text-on-surface-variant italic mt-md">7 Collections Found in the Repository</p>
+</div>
+</main>
+<!-- Footer Component -->
+<footer class="bg-surface-container-highest dark:bg-surface-container-lowest border-t border-outline-variant border-dashed flex flex-col items-center gap-md text-center pb-32 pt-12">
+<div class="font-title-md text-primary">Safar Dar Watan</div>
+<div class="flex gap-lg">
+<a class="font-label-sm text-label-sm italic text-on-surface-variant hover:text-primary transition-colors" href="#">Longing</a>
+<a class="font-label-sm text-label-sm italic text-on-surface-variant hover:text-primary transition-colors" href="#">Resilience</a>
+<a class="font-label-sm text-label-sm italic text-on-surface-variant hover:text-primary transition-colors" href="#">Heritage</a>
+<a class="font-label-sm text-label-sm italic text-on-surface-variant hover:text-primary transition-colors" href="#">Contribute</a>
+</div>
+<p class="font-label-sm text-label-sm italic text-on-surface-variant dark:text-surface-variant mt-md">© 2024 Safar Dar Watan • A Journey Home</p>
+<div class="flex gap-md mt-sm">
+<a class="material-symbols-outlined text-primary" href="#">play_circle</a>
+<a class="material-symbols-outlined text-primary" href="#">rss_feed</a>
+<a class="material-symbols-outlined text-primary" href="#">mail</a>
+</div>
+</footer>
+<!-- Bottom Navigation (Mobile Only) -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 py-2 pb-safe bg-surface/90 backdrop-blur-md border-t border-outline-variant">
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant opacity-70 hover:opacity-100 transition-opacity" href="#">
+<span class="material-symbols-outlined">home</span>
+<span class="font-label-sm text-label-sm uppercase tracking-tighter">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant opacity-70 hover:opacity-100 transition-opacity" href="#">
+<span class="material-symbols-outlined">account_balance</span>
+<span class="font-label-sm text-label-sm uppercase tracking-tighter">Archive</span>
+</a>
+<a class="flex flex-col items-center justify-center text-primary dark:text-primary-fixed bg-primary-fixed dark:bg-primary-container rounded-full px-3 py-1 scale-95 duration-150" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">grid_view</span>
+<span class="font-label-sm text-label-sm uppercase tracking-tighter">Explore</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant opacity-70 hover:opacity-100 transition-opacity" href="#">
+<span class="material-symbols-outlined">map</span>
+<span class="font-label-sm text-label-sm uppercase tracking-tighter">Map</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant opacity-70 hover:opacity-100 transition-opacity" href="#">
+<span class="material-symbols-outlined">mic</span>
+<span class="font-label-sm text-label-sm uppercase tracking-tighter">Voices</span>
+</a>
+</nav>
+<script>
+        function toggleDrawer() {
+            const drawer = document.getElementById('nav-drawer');
+            drawer.classList.toggle('-translate-x-full');
+        }
+
+        // Simple interaction for the grain overlay - slight shift on scroll
+        window.addEventListener('scroll', () => {
+            const grain = document.querySelector('.paper-grain');
+            const offset = (window.scrollY % 100) / 5;
+            grain.style.backgroundPosition = `${offset}px ${offset}px`;
+        });
+    </script>
+</body></html>

@@ -17,12 +17,15 @@ const List<NavDestination> kNavDestinations = [
   NavDestination(Icons.account_balance, 'Archive'),
   NavDestination(Icons.grid_view, 'Explore'),
   NavDestination(Icons.map, 'Map'),
-  NavDestination(Icons.mic, 'Voices'),
+  NavDestination(Icons.volunteer_activism, 'Contribute'),
 ];
 
 /// Virtual route index for Thematic Exhibits — reachable from the drawer only,
 /// so it has no slot in the bottom navigation bar.
 const int kThematicExhibitsIndex = 5;
+
+/// Bottom-nav index of the Contribute an Item screen.
+const int kContributeIndex = 4;
 
 /// Semi-transparent, blurred bottom navigation over the aged-paper surface.
 /// The active item sits in a "primary-fixed" pill (DESIGN.md → Navigation).

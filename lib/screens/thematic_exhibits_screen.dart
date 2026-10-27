@@ -117,11 +117,11 @@ class _ExhibitCard extends StatelessWidget {
           children: [
             Stack(
               children: [
-                const AspectRatio(
+                AspectRatio(
                   aspectRatio: 16 / 9,
                   child: ArchiveImage(
                     icon: Icons.account_balance,
-                    caption: 'The Imprint',
+                    asset: exhibit.cover,
                   ),
                 ),
                 Positioned(

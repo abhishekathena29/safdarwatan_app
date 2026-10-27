@@ -42,5 +42,33 @@ void main() {
     await tester.pumpAndSettle();
     expect(find.text('Browse Collections'), findsOneWidget);
     expect(tester.takeException(), isNull);
+
+    await tester.tap(find.text('CONTRIBUTE'));
+    await tester.pumpAndSettle();
+    expect(find.text('WHAT CAN YOU CONTRIBUTE?'), findsOneWidget);
+    expect(tester.takeException(), isNull);
+
+    await tester.tap(find.text('MAP'));
+    await tester.pump(const Duration(milliseconds: 500));
+    expect(find.text('NORTH AMERICA'), findsOneWidget);
+    expect(tester.takeException(), isNull);
+  });
+
+  testWidgets('a collection card opens its items', (tester) async {
+    tester.view.physicalSize = const Size(360, 800);
+    tester.view.devicePixelRatio = 1.0;
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+
+    await tester.pumpWidget(const SafarDarWatanApp());
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('EXPLORE'));
+    await tester.pumpAndSettle();
+
+    await tester.tap(find.text('شاعری (shayari)'));
+    await tester.pumpAndSettle();
+    expect(find.text('COLLECTION'), findsOneWidget);
+    expect(find.textContaining('still being gathered'), findsOneWidget);
+    expect(tester.takeException(), isNull);
   });
 }

@@ -5,14 +5,42 @@ import '../theme/app_colors.dart';
 import '../theme/app_text_styles.dart';
 import '../widgets/archive_image.dart';
 import '../widgets/grain_overlay.dart';
+import '../widgets/link_opener.dart';
 import '../widgets/vintage_button.dart';
+import 'item_detail_screen.dart';
 
 /// Immersive detail view for a thematic [Exhibit] — the curated narrative
 /// followed by a gallery of catalogued plates (thematic_exhibits.html).
-class ExhibitDetailScreen extends StatelessWidget {
+class ExhibitDetailScreen extends StatefulWidget {
   const ExhibitDetailScreen({super.key, required this.exhibit});
 
   final Exhibit exhibit;
+
+  @override
+  State<ExhibitDetailScreen> createState() => _ExhibitDetailScreenState();
+}
+
+class _ExhibitDetailScreenState extends State<ExhibitDetailScreen> {
+  final _galleryKey = GlobalKey();
+  final _scroll = ScrollController();
+
+  @override
+  void dispose() {
+    _scroll.dispose();
+    super.dispose();
+  }
+
+  Exhibit get exhibit => widget.exhibit;
+
+  void _enterGallery() {
+    final ctx = _galleryKey.currentContext;
+    if (ctx == null) return;
+    Scrollable.ensureVisible(
+      ctx,
+      duration: const Duration(milliseconds: 500),
+      curve: Curves.easeInOut,
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -42,6 +70,7 @@ class ExhibitDetailScreen extends StatelessWidget {
         children: [
           Positioned.fill(
             child: ListView(
+              controller: _scroll,
               padding: const EdgeInsets.fromLTRB(20, 8, 20, 48),
               children: [
                 _buildHero(context),
@@ -53,9 +82,15 @@ class ExhibitDetailScreen extends StatelessWidget {
                 _buildPullQuote(),
                 const SizedBox(height: 24),
                 _buildTags(),
+                const SizedBox(height: 24),
+                _buildCredits(),
                 const SizedBox(height: 40),
                 _buildGalleryHeader(),
                 const SizedBox(height: 16),
+                if (exhibit.film != null) ...[
+                  _buildFilm(context),
+                  const SizedBox(height: 16),
+                ],
                 for (final art in exhibit.artifacts) ...[
                   _ArtifactCard(artifact: art),
                   const SizedBox(height: 16),
@@ -75,6 +110,15 @@ class ExhibitDetailScreen extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        ClipRRect(
+          borderRadius: BorderRadius.circular(4),
+          child: ArchiveImage(
+            icon: Icons.account_balance,
+            asset: exhibit.cover,
+            aspectRatio: 4 / 3,
+          ),
+        ),
+        const SizedBox(height: 24),
         Text(
           'THEMATIC EXHIBIT',
           style: AppText.labelSm.copyWith(
@@ -99,7 +143,7 @@ class ExhibitDetailScreen extends StatelessWidget {
         const SizedBox(height: 20),
         VintageButton(
           label: 'Enter Gallery',
-          onPressed: () {},
+          onPressed: _enterGallery,
           padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 14),
         ),
       ],
@@ -174,8 +218,90 @@ class ExhibitDetailScreen extends StatelessWidget {
     );
   }
 
+  Widget _buildCredits() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          'CREDITS',
+          style: AppText.labelSm.copyWith(
+            color: AppColors.onSurfaceVariant.withValues(alpha: 0.7),
+            letterSpacing: 2,
+          ),
+        ),
+        const SizedBox(height: 8),
+        Text(
+          exhibit.credits,
+          style: AppText.bodyMd.copyWith(fontStyle: FontStyle.italic),
+        ),
+      ],
+    );
+  }
+
+  /// The exhibit's opening film, shown as a still that plays on YouTube.
+  Widget _buildFilm(BuildContext context) {
+    final film = itemById(exhibit.film!);
+    if (film == null) return const SizedBox.shrink();
+    final link = film.links.isEmpty ? null : film.links.first;
+    return GestureDetector(
+      onTap: () => link != null
+          ? openLink(context, link.url)
+          : Navigator.of(context).push(
+              MaterialPageRoute(builder: (_) => ItemDetailScreen(item: film)),
+            ),
+      child: Container(
+        decoration: BoxDecoration(
+          color: AppColors.surface,
+          border: Border.all(color: AppColors.outline.withValues(alpha: 0.4)),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Stack(
+              alignment: Alignment.center,
+              children: [
+                ArchiveImage(
+                  icon: Icons.smart_display,
+                  asset: film.image,
+                  aspectRatio: 16 / 9,
+                ),
+                Container(
+                  padding: const EdgeInsets.all(12),
+                  decoration: BoxDecoration(
+                    color: AppColors.primary.withValues(alpha: 0.9),
+                    shape: BoxShape.circle,
+                  ),
+                  child: const Icon(Icons.play_arrow,
+                      size: 32, color: AppColors.onPrimary),
+                ),
+              ],
+            ),
+            Padding(
+              padding: const EdgeInsets.all(16),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'FILM · ITEM #${film.catalogNo}',
+                    style: AppText.labelSm.copyWith(color: AppColors.secondary),
+                  ),
+                  const SizedBox(height: 6),
+                  Text(
+                    film.title,
+                    style: AppText.titleMd.copyWith(color: AppColors.primary),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
   Widget _buildGalleryHeader() {
     return Row(
+      key: _galleryKey,
       children: [
         Text(
           'GALLERY',
@@ -209,7 +335,13 @@ class ExhibitDetailScreen extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          _navLink(Icons.arrow_back, 'Previous', () {}),
+          _navLink(Icons.arrow_upward, 'Back to Top', () {
+            _scroll.animateTo(
+              0,
+              duration: const Duration(milliseconds: 500),
+              curve: Curves.easeInOut,
+            );
+          }),
           _navLink(Icons.arrow_forward, 'Explore More', () {
             Navigator.of(context).maybePop();
           }, trailing: true),
@@ -247,6 +379,19 @@ class _ArtifactCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        final item = itemById(artifact.itemId);
+        if (item == null) return;
+        Navigator.of(context).push(
+          MaterialPageRoute(builder: (_) => ItemDetailScreen(item: item)),
+        );
+      },
+      child: _buildCard(),
+    );
+  }
+
+  Widget _buildCard() {
     return Container(
       decoration: BoxDecoration(
         color: AppColors.surface,
@@ -282,7 +427,7 @@ class _ArtifactCard extends StatelessWidget {
           ),
           AspectRatio(
             aspectRatio: artifact.featured ? 16 / 10 : 4 / 3,
-            child: ArchiveImage(icon: artifact.icon),
+            child: ArchiveImage(icon: artifact.icon, asset: artifact.image),
           ),
           Padding(
             padding: const EdgeInsets.all(16),

@@ -4,14 +4,33 @@ import '../data/archive_data.dart';
 import '../theme/app_colors.dart';
 import '../theme/app_text_styles.dart';
 import '../widgets/archive_image.dart';
+import '../widgets/grain_overlay.dart';
 import 'item_detail_screen.dart';
 
 /// Browse Items — the full archive catalogue as a column of "filed" cards,
 /// with a search field and a tag filter row (DESIGN.md / browse_items.html).
+///
+/// Given a [collection], it lists only that collection's items inside its own
+/// page (the site's "View the items in …" link).
 class BrowseItemsScreen extends StatefulWidget {
-  const BrowseItemsScreen({super.key});
+  const BrowseItemsScreen({
+    super.key,
+    this.collection,
+    this.autofocusSearch = false,
+  });
+
+  final Collection? collection;
+  final bool autofocusSearch;
 
   static const _margin = 20.0;
+
+  static void openCollection(BuildContext context, Collection collection) {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (_) => BrowseItemsScreen(collection: collection),
+      ),
+    );
+  }
 
   @override
   State<BrowseItemsScreen> createState() => _BrowseItemsScreenState();
@@ -28,21 +47,61 @@ class _BrowseItemsScreenState extends State<BrowseItemsScreen> {
     super.dispose();
   }
 
+  List<ArchiveItem> get _source => widget.collection?.items ?? kItems;
+
   List<ArchiveItem> get _filtered {
-    return kItems.where((item) {
+    return _source.where((item) {
       if (_activeTag != null && !item.tags.contains(_activeTag)) return false;
       if (_query.isEmpty) return true;
       final q = _query.toLowerCase();
       return item.title.toLowerCase().contains(q) ||
           (item.subtitle?.toLowerCase().contains(q) ?? false) ||
           (item.description?.toLowerCase().contains(q) ?? false) ||
+          (item.contributors?.toLowerCase().contains(q) ?? false) ||
+          (item.interviewee?.toLowerCase().contains(q) ?? false) ||
+          (item.geo?.place.toLowerCase().contains(q) ?? false) ||
           item.tags.any((t) => t.contains(q));
     }).toList();
   }
 
   @override
   Widget build(BuildContext context) {
+    final list = _buildList();
+    if (widget.collection == null) return list;
+    return Scaffold(
+      backgroundColor: AppColors.background,
+      appBar: AppBar(
+        backgroundColor: AppColors.background,
+        surfaceTintColor: Colors.transparent,
+        elevation: 0,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back, color: AppColors.primary),
+          onPressed: () => Navigator.of(context).maybePop(),
+        ),
+        title: Text(
+          'COLLECTION',
+          style: AppText.labelSm.copyWith(
+            color: AppColors.onSurfaceVariant,
+            letterSpacing: 2,
+          ),
+        ),
+        centerTitle: true,
+        shape: const Border(
+          bottom: BorderSide(color: AppColors.outlineVariant),
+        ),
+      ),
+      body: Stack(
+        children: [
+          Positioned.fill(child: list),
+          const Positioned.fill(child: GrainOverlay()),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildList() {
     final items = _filtered;
+    final total = _source.length;
     return ListView(
       padding: const EdgeInsets.fromLTRB(
         BrowseItemsScreen._margin,
@@ -53,10 +112,12 @@ class _BrowseItemsScreenState extends State<BrowseItemsScreen> {
       children: [
         _buildHeader(),
         const SizedBox(height: 24),
-        _buildSearch(),
-        const SizedBox(height: 24),
-        _buildTagFilter(),
-        const SizedBox(height: 24),
+        if (total > 0) ...[
+          _buildSearch(),
+          const SizedBox(height: 24),
+          _buildTagFilter(),
+          const SizedBox(height: 24),
+        ],
         if (items.isEmpty)
           _buildEmpty()
         else
@@ -65,12 +126,33 @@ class _BrowseItemsScreenState extends State<BrowseItemsScreen> {
             const SizedBox(height: 24),
           ],
         const SizedBox(height: 8),
-        _buildFooterCount(items.length),
+        _buildFooterCount(items.length, total),
       ],
     );
   }
 
   Widget _buildHeader() {
+    final collection = widget.collection;
+    if (collection != null) {
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            collection.kashmiri,
+            style: AppText.headlineLg.copyWith(color: collection.color),
+          ),
+          const SizedBox(height: 8),
+          Text(
+            collection.title,
+            style: AppText.titleMd.copyWith(fontStyle: FontStyle.italic),
+          ),
+          const SizedBox(height: 8),
+          Container(height: 4, width: 96, color: collection.color),
+          const SizedBox(height: 16),
+          Text(collection.description, style: AppText.bodyMd),
+        ],
+      );
+    }
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -101,6 +183,7 @@ class _BrowseItemsScreenState extends State<BrowseItemsScreen> {
       children: [
         TextField(
           controller: _searchController,
+          autofocus: widget.autofocusSearch,
           onChanged: (v) => setState(() => _query = v.trim()),
           style: AppText.bodyLg.copyWith(color: AppColors.onSurface),
           cursorColor: AppColors.secondary,
@@ -125,7 +208,7 @@ class _BrowseItemsScreenState extends State<BrowseItemsScreen> {
   }
 
   Widget _buildTagFilter() {
-    final tags = allItemTags();
+    final tags = {for (final i in _source) ...i.tags}.toList()..sort();
     return SingleChildScrollView(
       scrollDirection: Axis.horizontal,
       child: Row(
@@ -160,7 +243,11 @@ class _BrowseItemsScreenState extends State<BrowseItemsScreen> {
               size: 48, color: AppColors.outline.withValues(alpha: 0.5)),
           const SizedBox(height: 12),
           Text(
-            'No items found in the repository.',
+            _source.isEmpty
+                ? 'This collection is still being gathered.\n'
+                    'Have something to add? Contribute an item.'
+                : 'No items found in the repository.',
+            textAlign: TextAlign.center,
             style: AppText.bodyMd.copyWith(fontStyle: FontStyle.italic),
           ),
         ],
@@ -168,7 +255,7 @@ class _BrowseItemsScreenState extends State<BrowseItemsScreen> {
     );
   }
 
-  Widget _buildFooterCount(int shown) {
+  Widget _buildFooterCount(int shown, int total) {
     return Center(
       child: Padding(
         padding: const EdgeInsets.only(top: 24),
@@ -178,8 +265,8 @@ class _BrowseItemsScreenState extends State<BrowseItemsScreen> {
             const SizedBox(height: 16),
             Text(
               _activeTag == null && _query.isEmpty
-                  ? '$shown of ${kItems.length} items in the repository'
-                  : '$shown of ${kItems.length} items match',
+                  ? '$shown of $total items in the repository'
+                  : '$shown of $total items match',
               style: AppText.labelSm.copyWith(
                 color: AppColors.onSurfaceVariant.withValues(alpha: 0.7),
               ),
@@ -265,6 +352,7 @@ class _ItemCard extends StatelessWidget {
                   child: ArchiveImage(
                     icon: item.kind.icon,
                     caption: item.caption,
+                    asset: item.image,
                   ),
                 ),
                 Positioned(

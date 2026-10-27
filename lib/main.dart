@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 
 import 'screens/browse_items_screen.dart';
 import 'screens/collections_screen.dart';
+import 'screens/contribute_screen.dart';
 import 'screens/home_screen.dart';
+import 'screens/map_screen.dart';
 import 'screens/thematic_exhibits_screen.dart';
 import 'theme/app_colors.dart';
-import 'theme/app_text_styles.dart';
 import 'theme/app_theme.dart';
 import 'widgets/bottom_nav_bar.dart';
 import 'widgets/grain_overlay.dart';
@@ -42,8 +43,17 @@ class RootShell extends StatefulWidget {
 class _RootShellState extends State<RootShell> {
   final _scaffoldKey = GlobalKey<ScaffoldState>();
   int _index = 0;
+  bool _searching = false;
 
-  void _select(int i) => setState(() => _index = i);
+  void _select(int i) => setState(() {
+        _index = i;
+        _searching = false;
+      });
+
+  void _search() => setState(() {
+        _index = 1;
+        _searching = true;
+      });
 
   @override
   Widget build(BuildContext context) {
@@ -53,7 +63,7 @@ class _RootShellState extends State<RootShell> {
       drawer: HeirloomDrawer(activeIndex: _index, onSelect: _select),
       appBar: HeirloomAppBar(
         onMenuTap: () => _scaffoldKey.currentState?.openDrawer(),
-        onSearchTap: () {},
+        onSearchTap: _search,
       ),
       body: Stack(
         children: [
@@ -71,39 +81,30 @@ class _RootShellState extends State<RootShell> {
   Widget _buildBody() {
     switch (_index) {
       case 0:
-        return HomeScreen(onBrowseCollection: () => _select(2));
+        return HomeScreen(
+          onBrowseCollection: () => _select(2),
+          onBrowseItems: () => _select(1),
+          onOpenMap: () => _select(3),
+          onContribute: () => _select(kContributeIndex),
+        );
       case 1:
-        return const BrowseItemsScreen();
+        // Keyed so tapping search re-creates it with the field focused.
+        return BrowseItemsScreen(
+          key: ValueKey(_searching),
+          autofocusSearch: _searching,
+        );
       case 2:
-        return const CollectionsScreen();
+        return CollectionsScreen(
+          onContribute: () => _select(kContributeIndex),
+        );
+      case 3:
+        return const MapScreen();
+      case kContributeIndex:
+        return const ContributeScreen();
       case kThematicExhibitsIndex:
         return const ThematicExhibitsScreen();
       default:
-        return _ComingSoon(label: kNavDestinations[_index].label);
+        return const SizedBox.shrink();
     }
-  }
-}
-
-/// Placeholder for destinations not yet designed (Archive, Map, Voices).
-class _ComingSoon extends StatelessWidget {
-  const _ComingSoon({required this.label});
-
-  final String label;
-
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Text(label, style: AppText.headlineLgMobile),
-          const SizedBox(height: 8),
-          Text(
-            'Coming soon to the archive.',
-            style: AppText.bodyMd.copyWith(fontStyle: FontStyle.italic),
-          ),
-        ],
-      ),
-    );
   }
 }

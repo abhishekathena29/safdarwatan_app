@@ -38,6 +38,13 @@ dependencies:
   # Heirloom typography: Playfair Display, Work Sans, Space Mono.
   google_fonts: ^8.1.0
 
+  # Map of geolocated items (OpenStreetMap tiles), outbound media links, and
+  # the embedded Omeka contribution / contact forms.
+  flutter_map: ^8.3.2
+  latlong2: ^0.10.1
+  url_launcher: ^6.3.3
+  webview_flutter: ^4.14.1
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -59,6 +66,10 @@ flutter:
   # included with your application, so that you can use the icons in
   # the material Icons class.
   uses-material-design: true
+
+  # Photographs, banner and video stills from safardarwatan.omeka.net.
+  assets:
+    - assets/images/
 
   # To add assets to your application, add an assets section, like this:
   # assets:

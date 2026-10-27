@@ -3,27 +3,83 @@ import 'package:flutter/material.dart';
 import '../theme/app_colors.dart';
 import '../theme/app_text_styles.dart';
 
-/// Placeholder for an archival photograph.
+/// Shown wherever an item has no photograph of its own (for now).
+const _defaultAsset = 'assets/images/site_banner.jpg';
+
+/// The banner's paper colour, so the letterboxed banner blends into its slot.
+const _defaultBackground = Color(0xFFF5EBEA);
+
+/// An archival photograph.
 ///
-/// The reference design pulls images from a remote CDN; to keep the app
-/// self-contained and offline-friendly we render a faded, sepia-toned
-/// stand-in with a representative icon and a short caption — echoing the
-/// "physical printed photograph" treatment from DESIGN.md (Images).
+/// Renders the bundled [asset] (a photo or video still from the site) with a
+/// light vignette. When an item has no image, the Safar Dar Watan banner is
+/// shown whole on its own paper colour; the sepia icon stand-in remains only
+/// as a fallback if an image fails to load.
 class ArchiveImage extends StatelessWidget {
   const ArchiveImage({
     super.key,
     required this.icon,
     this.caption,
     this.aspectRatio,
+    this.asset,
+    this.fit = BoxFit.cover,
   });
 
   final IconData icon;
   final String? caption;
   final double? aspectRatio;
+  final String? asset;
+  final BoxFit fit;
 
   @override
   Widget build(BuildContext context) {
-    final content = DecoratedBox(
+    final content = asset != null ? _photo() : _defaultImage();
+    if (aspectRatio != null) {
+      return AspectRatio(aspectRatio: aspectRatio!, child: content);
+    }
+    return content;
+  }
+
+  Widget _defaultImage() {
+    return ColoredBox(
+      color: _defaultBackground,
+      child: Padding(
+        padding: const EdgeInsets.all(8),
+        child: Image.asset(
+          _defaultAsset,
+          fit: BoxFit.contain,
+          errorBuilder: (_, _, _) => _placeholder(),
+        ),
+      ),
+    );
+  }
+
+  Widget _photo() {
+    return Stack(
+      fit: StackFit.expand,
+      children: [
+        Image.asset(
+          asset!,
+          fit: fit,
+          errorBuilder: (_, _, _) => _placeholder(),
+        ),
+        DecoratedBox(
+          decoration: BoxDecoration(
+            gradient: RadialGradient(
+              radius: 1.1,
+              colors: [
+                Colors.transparent,
+                AppColors.onSurface.withValues(alpha: 0.18),
+              ],
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _placeholder() {
+    return DecoratedBox(
       decoration: const BoxDecoration(
         gradient: LinearGradient(
           begin: Alignment.topLeft,
@@ -72,10 +128,5 @@ class ArchiveImage extends StatelessWidget {
         ],
       ),
     );
-
-    if (aspectRatio != null) {
-      return AspectRatio(aspectRatio: aspectRatio!, child: content);
-    }
-    return content;
   }
 }

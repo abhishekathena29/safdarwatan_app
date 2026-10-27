@@ -1,14 +1,21 @@
 import 'package:flutter/material.dart';
 
+import '../data/archive_data.dart';
 import '../theme/app_colors.dart';
 import '../theme/app_text_styles.dart';
 import '../widgets/archive_image.dart';
 import '../widgets/seal_tag.dart';
 import '../widgets/vintage_button.dart';
+import 'browse_items_screen.dart';
+import 'exhibit_detail_screen.dart';
+import 'item_detail_screen.dart';
 
-/// Browse Collections — the heritage-category bento grid.
+/// Browse Collections — the heritage-category bento grid. Each card opens
+/// the items filed in that collection.
 class CollectionsScreen extends StatelessWidget {
-  const CollectionsScreen({super.key});
+  const CollectionsScreen({super.key, this.onContribute});
+
+  final VoidCallback? onContribute;
 
   static const _margin = 20.0;
 
@@ -19,29 +26,31 @@ class CollectionsScreen extends StatelessWidget {
       children: [
         _buildHeader(),
         const SizedBox(height: 24),
-        _poetryCard(),
+        _tappable(context, 'shayari', _poetryCard(context)),
         const SizedBox(height: 24),
-        _cuisineCard(),
+        _tappable(context, 'khyawun', _cuisineCard(context)),
         const SizedBox(height: 24),
-        _communityCard(),
+        _tappable(context, 'wupkar', _communityCard(context)),
         const SizedBox(height: 24),
-        _artsCard(),
+        _tappable(context, 'karigari', _artsCard(context)),
         const SizedBox(height: 24),
-        _architectureCard(),
+        _tappable(context, 'fanetaameer', _architectureCard(context)),
         const SizedBox(height: 24),
-        _oralHistoryCard(),
+        _tappable(context, 'daastan', _oralHistoryCard(context)),
+        const SizedBox(height: 24),
+        _tappable(context, 'gyavun', _musicCard(context)),
         const SizedBox(height: 40),
         Center(
           child: VintageButton(
             label: 'Contribute to the Archive',
-            onPressed: () {},
+            onPressed: onContribute ?? () {},
             padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 16),
           ),
         ),
         const SizedBox(height: 16),
         Center(
           child: Text(
-            '7 Collections Found in the Repository',
+            '${kCollections.length} Collections Found in the Repository',
             style: AppText.bodyMd.copyWith(fontStyle: FontStyle.italic),
           ),
         ),
@@ -74,6 +83,41 @@ class CollectionsScreen extends StatelessWidget {
     );
   }
 
+  /// Makes a collection card open its item list, with an item-count stamp.
+  Widget _tappable(BuildContext context, String id, Widget card) {
+    final collection = collectionById(id)!;
+    final count = collection.items.length;
+    return GestureDetector(
+      behavior: HitTestBehavior.opaque,
+      onTap: () => BrowseItemsScreen.openCollection(context, collection),
+      child: Stack(
+        children: [
+          card,
+          Positioned(
+            top: 0,
+            right: 0,
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+              color: count == 0 ? AppColors.outline : collection.color,
+              child: Text(
+                count == 0
+                    ? 'IN CURATION'
+                    : '$count ITEM${count == 1 ? '' : 'S'}',
+                style: AppText.labelSm.copyWith(
+                  color: AppColors.surface,
+                  fontSize: 10,
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  void _openCollection(BuildContext context, String id) =>
+      BrowseItemsScreen.openCollection(context, collectionById(id)!);
+
   /// Shared chrome: a card with the asymmetric hairline border.
   Widget _card({required Widget child, Color? color}) {
     return Container(
@@ -89,7 +133,7 @@ class CollectionsScreen extends StatelessWidget {
   }
 
   // ── Poetry (deep blue) ──────────────────────────────────────────────────
-  Widget _poetryCard() {
+  Widget _poetryCard(BuildContext context) {
     return _card(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -137,7 +181,7 @@ class CollectionsScreen extends StatelessWidget {
   }
 
   // ── Cuisine (saffron) ───────────────────────────────────────────────────
-  Widget _cuisineCard() {
+  Widget _cuisineCard(BuildContext context) {
     return _card(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -186,7 +230,7 @@ class CollectionsScreen extends StatelessWidget {
                 bottom: 16,
                 child: VintageButton(
                   label: 'Open',
-                  onPressed: () {},
+                  onPressed: () => _openCollection(context, 'khyawun'),
                   background: AppColors.secondary,
                   foreground: AppColors.onSecondary,
                   shadowColor: AppColors.secondary,
@@ -202,7 +246,7 @@ class CollectionsScreen extends StatelessWidget {
   }
 
   // ── Community (resilience) ───────────────────────────────────────────────
-  Widget _communityCard() {
+  Widget _communityCard(BuildContext context) {
     return _card(
       color: AppColors.surfaceContainerHigh,
       child: Padding(
@@ -259,7 +303,7 @@ class CollectionsScreen extends StatelessWidget {
   }
 
   // ── Arts & Crafts (emerald) ──────────────────────────────────────────────
-  Widget _artsCard() {
+  Widget _artsCard(BuildContext context) {
     return _card(
       color: const Color(0xFFE0EFEA),
       child: Column(
@@ -325,7 +369,7 @@ class CollectionsScreen extends StatelessWidget {
   }
 
   // ── Architectural Epigraphy (slate) ──────────────────────────────────────
-  Widget _architectureCard() {
+  Widget _architectureCard(BuildContext context) {
     return _card(
       color: AppColors.surfaceVariant,
       child: Padding(
@@ -365,9 +409,22 @@ class CollectionsScreen extends StatelessWidget {
                   style: AppText.bodyMd,
                 ),
                 const SizedBox(height: 24),
+                ClipRect(
+                  child: ArchiveImage(
+                    icon: Icons.architecture,
+                    asset: AppImages.naqshPhotoWall,
+                    aspectRatio: 4 / 3,
+                  ),
+                ),
+                const SizedBox(height: 24),
                 VintageButton(
                   label: 'Browse Exhibit',
-                  onPressed: () {},
+                  onPressed: () => Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (_) =>
+                          const ExhibitDetailScreen(exhibit: kNaqshExhibit),
+                    ),
+                  ),
                   background: AppColors.onSurface,
                   foreground: AppColors.surface,
                   shadowColor: AppColors.onSurface,
@@ -381,7 +438,7 @@ class CollectionsScreen extends StatelessWidget {
   }
 
   // ── Oral History (warm paper) ────────────────────────────────────────────
-  Widget _oralHistoryCard() {
+  Widget _oralHistoryCard(BuildContext context) {
     return _card(
       color: AppColors.primaryFixed,
       child: IntrinsicHeight(
@@ -415,9 +472,13 @@ class CollectionsScreen extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(height: 16),
-                    _episode('Episode 14: The Lost Ladishah'),
-                    const SizedBox(height: 8),
-                    _episode('Episode 15: Migration Memories'),
+                    for (final item in collectionById('daastan')!
+                        .items
+                        .where((i) => i.kind == ItemKind.oralHistory)
+                        .take(4)) ...[
+                      _episode(context, item),
+                      const SizedBox(height: 8),
+                    ],
                   ],
                 ),
               ),
@@ -449,18 +510,77 @@ class CollectionsScreen extends StatelessWidget {
     );
   }
 
-  Widget _episode(String title) {
-    return Row(
-      children: [
-        const Icon(Icons.mic, size: 18, color: AppColors.onPrimaryFixedVariant),
-        const SizedBox(width: 8),
-        Expanded(
-          child: Text(
-            title,
-            style: AppText.bodyMd.copyWith(color: AppColors.onPrimaryFixedVariant),
+  Widget _episode(BuildContext context, ArchiveItem item) {
+    return GestureDetector(
+      onTap: () => Navigator.of(context).push(
+        MaterialPageRoute(builder: (_) => ItemDetailScreen(item: item)),
+      ),
+      child: Row(
+        children: [
+          const Icon(Icons.mic,
+              size: 18, color: AppColors.onPrimaryFixedVariant),
+          const SizedBox(width: 8),
+          Expanded(
+            child: Text(
+              item.duration == null
+                  ? item.title
+                  : '${item.title} · ${item.duration}',
+              style: AppText.bodyMd
+                  .copyWith(color: AppColors.onPrimaryFixedVariant),
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
+    );
+  }
+
+  // ── Music (gyavun) ──────────────────────────────────────────────────────
+  Widget _musicCard(BuildContext context) {
+    final concert = itemById(29)!;
+    return _card(
+      color: AppColors.secondaryFixed,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          ArchiveImage(
+            icon: Icons.music_note,
+            asset: concert.image,
+            aspectRatio: 16 / 9,
+          ),
+          Padding(
+            padding: const EdgeInsets.all(24),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'MELODIES OF THE VALLEY',
+                  style: AppText.labelSm
+                      .copyWith(color: AppColors.onSecondaryFixedVariant),
+                ),
+                const SizedBox(height: 16),
+                Text(
+                  'گیوٕن (gyavun)',
+                  style: AppText.headlineLg
+                      .copyWith(color: AppColors.onSecondaryFixedVariant),
+                ),
+                const SizedBox(height: 8),
+                Text(
+                  'Music',
+                  style: AppText.titleMd.copyWith(fontStyle: FontStyle.italic),
+                ),
+                const SizedBox(height: 16),
+                Text(
+                  concert.subtitle ?? concert.title,
+                  style: AppText.bodyMd
+                      .copyWith(color: AppColors.onSecondaryFixedVariant),
+                ),
+                const SizedBox(height: 24),
+                _viewArchiveLink(),
+              ],
+            ),
+          ),
+        ],
+      ),
     );
   }
 
